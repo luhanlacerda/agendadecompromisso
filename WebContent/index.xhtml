@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+<ui:composition template="/pages/_template.xhtml">
+
+	<ui:define name="titulo">
+		<p:outputPanel>Compromisso</p:outputPanel>
+	</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form>
+
+			<p:messages id="messages" />
+
+			<p:fieldset legend="Dados do Compromisso">
+				<p:panelGrid columns="6">
+
+					<p:outputLabel value="Descrição:" for="descricao" />
+					<p:inputText id="descricao"
+						value="#{compromissoBean.compromisso.descricao}" required="true"
+						requiredMessage="Descricao obrigatório"
+						validatorMessage="Título não pode ser superior a 100">
+						<f:validateLength maximum="100" />
+						<f:ajax event="blur" render="messages" />
+					</p:inputText>
+
+					<p:outputLabel value="Data do Compromisso:" for="dataCompromisso" />
+					<p:calendar id="dataCompromisso"
+						value="#{compromissoBean.compromisso.data.time}"
+						pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo" mask="true"
+						required="true" />
+
+					<p:outputLabel for="time" value="Time:" />
+					<p:calendar id="time"
+						value="#{compromissoBean.compromisso.duracao.time}" pattern="HH:mm"
+						timeOnly="true" />
+
+				</p:panelGrid>
+			</p:fieldset>
+
+			<br />
+
+			<p:commandButton value="Gravar" action="#{compromissoBean.gravar}"
+				process="@form"
+				update="@form :formTabelaCompromissos:tabelaCompromissos" />
+		</h:form>
+
+		<br />
+
+		<h:form id="formTabelaCompromissos">
+			<p:dataTable value="#{compromissoBean.compromissos}"
+				var="compromisso" id="tabelaCompromissos" paginator="true" rows="10">
+
+				<f:facet name="header">Compromissos</f:facet>
+				<p:column headerText="Id" sortBy="#{compromisso.id}"
+					filterMatchMode="startsWith" width="200">
+					<h:outputText value="#{compromisso.id}" />
+				</p:column>
+
+				<p:column headerText="Descrição" sortBy="#{compromisso.descricao}"
+					filterMatchMode="startsWith" width="200">
+					<h:outputText value="#{compromisso.descricao}" />
+				</p:column>
+
+				<p:column headerText="Data" sortBy="#{compromisso.data.time}"
+					filterMatchMode="startsWith" width="200">
+					<h:outputText value="#{compromisso.data.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="Brazil/East" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Alterar">
+					<h:commandLink value="alterar"
+						action="#{compromissoBean.carregar(compromisso)}" />
+				</p:column>
+
+				<p:column headerText="Remover">
+					<h:commandLink value="remover"
+						action="#{compromissoBean.remover(compromisso)}" />
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>
