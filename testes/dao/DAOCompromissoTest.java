@@ -15,11 +15,11 @@ public class DAOCompromissoTest {
 			Compromisso compromisso = new Compromisso();
 
 			compromisso.setDescricao("Projeto Faculdade");
-			compromisso.setData(new SimpleDateFormat("dd/MM/yyyy").parse("26/05/2018"));
-			compromisso.setDuracao(Duration.ofHours(2));
+			//compromisso.setData(new SimpleDateFormat("dd/MM/yyyy").parse("26/05/2018"));
+			//compromisso.setDuracao(Duration.ofHours(2));
 
 			DAOCompromisso factory = DAOFactory.getCompromissoDAO();
-			factory.insert(compromisso);
+			//factory.insert(compromisso);
 
 			factory.getAllByOrdemCronologica();
 		} catch (Exception e) {

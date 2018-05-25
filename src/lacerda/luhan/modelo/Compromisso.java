@@ -18,7 +18,7 @@ public class Compromisso {
 	private String descricao;
 	@Temporal(TemporalType.DATE)
 	private Calendar data = Calendar.getInstance();
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar duracao = Calendar.getInstance();
 
 	public int getId() {

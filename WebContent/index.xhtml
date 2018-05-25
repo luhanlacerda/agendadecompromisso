@@ -24,8 +24,8 @@
 					<p:outputLabel value="Descrição:" for="descricao" />
 					<p:inputText id="descricao"
 						value="#{compromissoBean.compromisso.descricao}" required="true"
-						requiredMessage="Descricao obrigatório"
-						validatorMessage="Título não pode ser superior a 100">
+						requiredMessage="Descrição obrigatório"
+						validatorMessage="A Descrição não pode ser superior a 100">
 						<f:validateLength maximum="100" />
 						<f:ajax event="blur" render="messages" />
 					</p:inputText>
@@ -38,8 +38,9 @@
 
 					<p:outputLabel for="time" value="Time:" />
 					<p:calendar id="time"
-						value="#{compromissoBean.compromisso.duracao.time}" pattern="HH:mm"
-						timeOnly="true" />
+						value="#{compromissoBean.compromisso.duracao.time}"
+						pattern="HH:mm" timeOnly="true" required="true"
+						requiredMessage="Duração obrigatória" />
 
 				</p:panelGrid>
 			</p:fieldset>
@@ -58,20 +59,25 @@
 				var="compromisso" id="tabelaCompromissos" paginator="true" rows="10">
 
 				<f:facet name="header">Compromissos</f:facet>
-				<p:column headerText="Id" sortBy="#{compromisso.id}"
-					filterMatchMode="startsWith" width="200">
+				<p:column headerText="Id" filterMatchMode="startsWith" width="200">
 					<h:outputText value="#{compromisso.id}" />
 				</p:column>
 
-				<p:column headerText="Descrição" sortBy="#{compromisso.descricao}"
-					filterMatchMode="startsWith" width="200">
+				<p:column headerText="Descrição" filterMatchMode="startsWith"
+					width="200">
 					<h:outputText value="#{compromisso.descricao}" />
 				</p:column>
 
-				<p:column headerText="Data" sortBy="#{compromisso.data.time}"
-					filterMatchMode="startsWith" width="200">
+				<p:column headerText="Data" filterMatchMode="startsWith" width="200">
 					<h:outputText value="#{compromisso.data.time}">
 						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="Brazil/East" />
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Duração" filterMatchMode="startsWith"
+					width="200">
+					<h:outputText value="#{compromisso.duracao.time}">
+						<f:convertDateTime pattern="HH:mm" timeZone="Brazil/East" />
 					</h:outputText>
 				</p:column>
 
